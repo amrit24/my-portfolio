@@ -230,8 +230,13 @@
   .cert-card ul{ margin:0; padding-left:18px; color: var(--text-dim); font-size: 13.5px; }
   .cert-card li{ margin-bottom:5px; }
 
-  .edu-line{ font-family: var(--mono); font-size: 13.5px; color: var(--text-dim); margin-top: 30px; padding-top:26px; border-top:1px dashed var(--border-soft); }
-  .edu-line b{ color: var(--text); }
+  .edu-card{
+    background: var(--panel); border:1px solid var(--border-soft); border-radius: 12px; padding: 22px 24px;
+  }
+  .edu-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; }
+  .edu-degree{ font-weight:700; font-size: 16px; margin-bottom: 5px; }
+  .edu-school{ color: var(--text-dim); font-size: 13.5px; }
+  .edu-period{ font-size: 11.5px; color: var(--text-faint); white-space:nowrap; padding: 5px 10px; border:1px solid var(--border); border-radius: 20px; height:fit-content; }
 
   /* ---------- CONTACT / FOOTER ---------- */
   footer{ padding: 70px 0 50px; border-top: 1px solid var(--border-soft); }
@@ -292,6 +297,7 @@
       <a href="#stack">Stack</a>
       <a href="#experience">Deployments</a>
       <a href="#certs">Training</a>
+      <a href="#education">Education</a>
       <a href="#contact">Contact</a>
     </nav>
     <span class="status-pill"><span class="pulse"></span><span class="txt">OPEN TO OPPORTUNITIES</span><span class="mono" style="display:none"></span></span>
@@ -481,13 +487,27 @@
           </ul>
         </div>
       </div>
-      <p class="edu-line"><b>B.Tech, Computer Science and Engineering</b> — College of Engineering Roorkee, Uttarakhand, India · 2014 – 2018</p>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-tag mono">05</span><h2 class="sec-title">Education</h2><div class="sec-line"></div></div>
+      <div class="edu-card">
+        <div class="edu-top">
+          <div>
+            <div class="edu-degree">B.Tech, Computer Science and Engineering</div>
+            <div class="edu-school">College of Engineering Roorkee, Uttarakhand, India</div>
+          </div>
+          <span class="edu-period mono">2014 – 2018</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <footer id="contact">
     <div class="wrap">
-      <div class="sec-head"><span class="sec-tag mono">05</span><h2 class="sec-title">Contact</h2><div class="sec-line"></div></div>
+      <div class="sec-head"><span class="sec-tag mono">06</span><h2 class="sec-title">Contact</h2><div class="sec-line"></div></div>
       <div class="term">
         <div class="line"><span class="prompt">amrit@career</span>:<span class="path">~</span>$ whoami</div>
         <div class="line">Amrit Shrivastava — Senior Java Developer, open to new roles</div>
