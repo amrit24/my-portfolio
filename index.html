@@ -89,9 +89,13 @@
   }
   .brand{
     font-family: var(--mono); font-weight:700; font-size: 14px; letter-spacing: 0.02em;
-    display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; white-space:nowrap;
+    display:flex; align-items:center; text-decoration:none; flex-shrink:0; white-space:nowrap;
+    position: relative;
   }
-  .brand .dot{ width:8px; height:8px; border-radius:50%; background: var(--green); box-shadow: 0 0 8px var(--green); flex-shrink:0; }
+  .brand .dot{
+    width:8px; height:8px; border-radius:50%; background: var(--green); box-shadow: 0 0 8px var(--green);
+    position:absolute; left:-18px; top:50%; transform: translateY(-50%);
+  }
   nav.links{
     display:flex; gap: 28px; order:3; flex: 1 1 100%;
     overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px;
