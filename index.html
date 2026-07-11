@@ -1,9 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem('site-theme');if(t==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Amrit Shrivastava — Senior Java Developer</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0A0C11">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="amrit.dev">
 <meta name="description" content="Amrit Shrivastava, Senior Java Developer. Spring Boot, Microservices, Kafka, Cloud. 7+ years across Banking, Payments and Ecommerce.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,9 +33,28 @@
     --green: #3ED9A0;
     --blue: #5B8DEF;
     --red: #F26B5B;
-    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --mono: 'SF Mono', 'Menlo', 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
     --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   }
+
+  html[data-theme="light"]{
+    --bg: #F5F5F7;
+    --bg-alt: #EBECEF;
+    --panel: #FFFFFF;
+    --panel-2: #F1F2F4;
+    --border: #D9DCE1;
+    --border-soft: #E5E7EB;
+    --text: #1B1F24;
+    --text-dim: #4B5563;
+    --text-faint: #8A93A0;
+    --amber: #B96E15;
+    --green: #148A62;
+    --blue: #2F5FC7;
+    --red: #C7402E;
+  }
+  html[data-theme="light"] header.nav{ background: rgba(255,255,255,0.82); }
+  html[data-theme="light"] .btn-primary{ color: #1B1F24; }
+  html[data-theme="light"] ::selection{ background: rgba(184,110,21,0.22); color: var(--text); }
 
   *{ box-sizing: border-box; }
   html{ scroll-behavior: smooth; }
@@ -64,20 +93,31 @@
     border-bottom: 1px solid var(--border-soft);
   }
   .nav-inner{
-    display:flex; align-items:center; justify-content: space-between;
+    display:flex; align-items:center; justify-content: space-between; flex-wrap: wrap; row-gap: 10px;
     padding: 16px 28px; max-width: 1080px; margin: 0 auto;
   }
   .brand{
     font-family: var(--mono); font-weight:700; font-size: 14px; letter-spacing: 0.02em;
-    display:flex; align-items:center; gap:10px; text-decoration:none;
+    display:flex; align-items:center; text-decoration:none; flex-shrink:0; white-space:nowrap;
+    position: relative;
   }
-  .brand .dot{ width:8px; height:8px; border-radius:50%; background: var(--green); box-shadow: 0 0 8px var(--green); flex-shrink:0; }
-  nav.links{ display:flex; gap: 28px; }
+  .brand .dot{
+    width:8px; height:8px; border-radius:50%; background: var(--green); box-shadow: 0 0 8px var(--green);
+    position:absolute; left:-18px; top:50%; transform: translateY(-50%);
+  }
+  nav.links{
+    display:flex; gap: 28px; order:3; flex: 1 1 100%;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  nav.links::-webkit-scrollbar{ display:none; }
   nav.links a{
     font-family: var(--mono); font-size: 12.5px; text-decoration:none; color: var(--text-dim);
     letter-spacing: 0.03em; text-transform: uppercase; transition: color .15s ease;
+    flex-shrink:0;
   }
   nav.links a:hover{ color: var(--text); }
+  .nav-controls{ display:flex; align-items:center; gap:12px; flex-shrink:0; }
   .status-pill{
     font-family: var(--mono); font-size: 11px; letter-spacing:0.04em; color: var(--green);
     border:1px solid rgba(62,217,160,0.35); background: rgba(62,217,160,0.08);
@@ -88,10 +128,24 @@
   @keyframes pulse{ 0%,100%{ opacity:1; transform:scale(1);} 50%{ opacity:.4; transform:scale(0.7);} }
   .menu-btn{ display:none; background:none; border:1px solid var(--border); color:var(--text); border-radius:6px; padding:8px 10px; font-family:var(--mono); }
 
+  .theme-toggle{
+    display:flex; align-items:center; gap:2px;
+    background: var(--bg-alt); border:1px solid var(--border); border-radius:16px; padding:2px;
+  }
+  .theme-toggle button{
+    appearance:none; border:none; background:transparent; color: var(--text-faint);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing:0.03em; text-transform:uppercase;
+    padding: 4px 10px; border-radius: 13px; cursor:pointer; transition: background .15s ease, color .15s ease;
+  }
+  .theme-toggle button.active{ background: var(--panel); color: var(--text); }
+  .theme-toggle button:not(.active):hover{ color: var(--text); }
+
   @media (max-width: 760px){
-    nav.links{ display:none; }
     .menu-btn{ display:inline-flex; }
     .status-pill span.txt{ display:none; }
+  }
+  @media (max-width: 420px){
+    .theme-toggle button{ padding: 4px 7px; font-size: 9.5px; }
   }
 
   /* ---------- HERO ---------- */
@@ -300,7 +354,13 @@
       <a href="#education">Education</a>
       <a href="#contact">Contact</a>
     </nav>
-    <span class="status-pill"><span class="pulse"></span><span class="txt">OPEN TO OPPORTUNITIES</span><span class="mono" style="display:none"></span></span>
+    <div class="nav-controls">
+      <div class="theme-toggle" role="group" aria-label="Theme">
+        <button type="button" id="btnDark" class="mono">dark</button>
+        <button type="button" id="btnLight" class="mono">light</button>
+      </div>
+      <span class="status-pill"><span class="pulse"></span><span class="txt">OPEN TO OPPORTUNITIES</span><span class="mono" style="display:none"></span></span>
+    </div>
   </div>
 </header>
 
@@ -308,7 +368,7 @@
   <div class="wrap hero">
     <p class="eyebrow">senior java developer</p>
     <h1 class="headline">Backend systems that<br><span class="grad">just work in production.</span></h1>
-    <p class="lede">I'm <b>Amrit Shrivastava</b>, a Senior Java Developer based in Gurugram, India. Seven years building and running <b>Java, Spring Boot and microservices</b> for banks, payment processors and e-commerce platforms.</p>
+    <p class="lede">I'm <b>Amrit Shrivastava</b>, a Senior Java Developer based in Gurugram, India. Seven years building and running <b>Java, Spring Boot and microservices</b> for banks, payment gateways and e-commerce platforms.</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="mailto:amrit.shrivastava24@gmail.com">amrit.shrivastava24@gmail.com</a>
       <a class="btn btn-ghost" href="https://linkedin.com/in/amrit-shrivastava1" target="_blank" rel="noopener">LinkedIn ↗</a>
@@ -335,7 +395,7 @@
       <div class="sec-head"><span class="sec-tag mono">01</span><h2 class="sec-title">About</h2><div class="sec-line"></div></div>
       <div class="about-grid">
       <div>
-         <p>I own features end-to-end—from requirement analysis and effort estimation to development, testing, and even 2 a.m. production releases. Across <strong>retail banking, investment banking, payments, and e-commerce</strong>, I've built solutions that onboard thousands of customers, run OTP and loyalty services in production, and calculate credit limits for institutional clients on a multi-module investment banking platform.</p>
+         <p>I own features end-to-end from requirement analysis and effort estimation to development, testing, and even 2 a.m. production releases. Across <strong>retail banking, investment banking, payments, and e-commerce</strong>, I've built solutions that onboard thousands of customers, run OTP and loyalty services in production, and calculate credit limits for institutional clients on a multi-module investment banking platform.</p>
          <p>I'm fluent in the entire software delivery lifecycle, including Agile/Scrum, PI planning, Jenkins/Bamboo/OpenShift pipelines, SonarQube quality gates, and Grafana dashboards that help identify issues before customers do. More recently, that lifecycle has expanded to include AI tooling, with GitHub Copilot and Claude Code as part of my daily development workflow, along with Spring AI, RAG, and ChromaDB as I build the next generation of AI-powered applications.</p>
          <p>Trained in TCS's enterprise delivery model and further sharpened at Nagarro while working on client-facing roles, I'm comfortable being the backend engineer a team relies on to deliver critical features from concept to production.</p>
        </div>
@@ -557,6 +617,31 @@
     track.appendChild(frag);
   }
   renderLogs();
+
+  // Theme toggle — dark / light, persisted in localStorage
+  (function(){
+    const root = document.documentElement;
+    const btnDark = document.getElementById('btnDark');
+    const btnLight = document.getElementById('btnLight');
+    function apply(theme){
+      root.setAttribute('data-theme', theme);
+      btnDark.classList.toggle('active', theme === 'dark');
+      btnLight.classList.toggle('active', theme === 'light');
+      btnDark.setAttribute('aria-pressed', theme === 'dark');
+      btnLight.setAttribute('aria-pressed', theme === 'light');
+      try{ localStorage.setItem('site-theme', theme); }catch(e){}
+    }
+    apply(root.getAttribute('data-theme') || 'dark');
+    btnDark.addEventListener('click', () => apply('dark'));
+    btnLight.addEventListener('click', () => apply('light'));
+  })();
+
+  // PWA service worker registration
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    });
+  }
 </script>
 
 </body>
